@@ -1,5 +1,21 @@
+// vercel.json
 {
+  "routes": [
+    {
+      "src": "/[^.]+",  // 匹配所有非静态文件请求
+      "dest": "/index.html"
+    },
+    {
+      "src": "/static/(.*)",  // 处理静态文件请求
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    }
+  ],
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+    {
+      "source": "/api/(.*)",  // API代理规则
+      "destination": "https://your-backend.com/api/$1"
+    }
   ]
 }
